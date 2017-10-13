@@ -1,0 +1,23 @@
+{
+  "name": "facebookgu",
+  "version": "0.0.1",
+  "description": "Facebook tests with Mocha and Webdriverio",
+  "main": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NastaNe/facebook_test.git"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/wdio wdio.conf.js"
+  },
+  "dependencies": {
+    "parallel-mocha": "*",
+    "mocha": "*",
+    "chai": "*",
+    "wdio-sauce-service": "*"
+  },
+  "devDependencies": {
+    "wdio-mocha-framework": "^0.5.11",
+    "webdriverio": "^4.8.0"
+  }
+}
