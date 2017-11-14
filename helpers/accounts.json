@@ -1,0 +1,64 @@
+{
+  "items": [
+    {
+      "first_name": "Olena",
+      "last_name": "Ivanova",
+      "password": "12hjSecure12341",
+      "email": "olena_test@p33.org",
+      "month": 1,
+      "day": 18,
+      "year": 1997,
+      "female": true
+    },
+    {
+      "first_name": "Olena",
+      "last_name": "Ivanova",
+      "password": "12hjSecure12341",
+      "email": "olena_test@p33.org",
+      "month": 1,
+      "day": 18,
+      "year": 1999,
+      "female": true
+    },
+    {
+      "first_name": "Oksana",
+      "last_name": "Ivanova",
+      "password": "12hjSecure12341",
+      "email": "oksana_test@p33.org",
+      "month": 1,
+      "day": 18,
+      "year": 1991,
+      "female": true
+    },
+    {
+      "first_name": "Karina",
+      "last_name": "Ivanova",
+      "password": "12hjSecure12341",
+      "email": "karina_test@p33.org",
+      "month": 1,
+      "day": 18,
+      "year": 1993,
+      "female": true
+    },
+    {
+      "first_name": "Nastia",
+      "last_name": "Ivanova",
+      "password": "12hjSecure12341",
+      "email": "nastia_test@p33.org",
+      "month": 1,
+      "day": 18,
+      "year": 1994,
+      "female": true
+    },
+    {
+      "first_name": "Katia",
+      "last_name": "Ivanova",
+      "password": "12hjSecure12341",
+      "email": "katia_test@p33.org",
+      "month": 1,
+      "day": 18,
+      "year": 1993,
+      "female": true
+    }
+  ]
+}

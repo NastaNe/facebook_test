@@ -4,7 +4,7 @@ exports.config = {
     // ==================
     // Specify Test Files
     // ==================
-    // Define which test specs should run. The pattern is relative to the directory
+    // Define which tests specs should run. The pattern is relative to the directory
     // from which `wdio` was called. Notice that, if you are calling `wdio` from an
     // NPM script (see https://docs.npmjs.com/cli/run-script) then the current working
     // directory is where your package.json resides, so `wdio` will be called from there.
@@ -21,7 +21,7 @@ exports.config = {
     // Capabilities
     // ============
     // Define your capabilities here. WebdriverIO can run multiple capabilities at the same
-    // time. Depending on the number of capabilities, WebdriverIO launches several test
+    // time. Depending on the number of capabilities, WebdriverIO launches several tests
     // sessions. Within your capabilities you can overwrite the spec and exclude options in
     // order to group specific specs to a specific capability.
     //
@@ -30,7 +30,7 @@ exports.config = {
     // set maxInstances to 1; wdio will spawn 3 processes. Therefore, if you have 10 spec
     // files and you set maxInstances to 10, all spec files will get tested at the same time
     // and 30 processes will get spawned. The property handles how many capabilities
-    // from the same test should run tests.
+    // from the same tests should run tests.
     //
     maxInstances: 10,
     //
@@ -44,7 +44,10 @@ exports.config = {
         // 5 instances get started at a time.
         maxInstances: 5,
         //
-        browserName: 'chrome'
+        browserName: 'chrome',
+        chromeOptions:{
+            args: ['--disable-infobars']
+        }
     }],
     //
     // ===================
@@ -57,7 +60,7 @@ exports.config = {
     // e.g. using promises you can set the sync option to false.
     sync: true,
     //
-    // Level of logging verbosity: silent | verbose | command | data | result | error
+    // Level of logging verbosity: silent | verbose | command | helpers | result | error
     logLevel: 'silent',
     //
     // Enables colors for log output.
@@ -72,7 +75,7 @@ exports.config = {
     //
     // Set a base URL in order to shorten url command calls. If your url parameter starts
     // with "/", then the base url gets prepended.
-    baseUrl: 'https://www.booking.com/',
+    baseUrl: 'https://www.facebook.com/',
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 10000,
@@ -104,8 +107,8 @@ exports.config = {
     //
     // Test runner services
     // Services take over a specific job you don't want to take care of. They enhance
-    // your test setup with almost no effort. Unlike plugins, they don't add new
-    // commands. Instead, they hook themselves up into the test process.
+    // your tests setup with almost no effort. Unlike plugins, they don't add new
+    // commands. Instead, they hook themselves up into the tests process.
     // services: [],//
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
@@ -122,14 +125,21 @@ exports.config = {
     //
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/
+    reporters: ['dot', 'allure'],
+    reporterOptions: {
+        allure: {
+            outputDir: 'allure-results'
+        }
+    },
     mochaOpts: {
+        timeout: 60000,
         ui: 'bdd'
     },
     //
     // =====
     // Hooks
     // =====
-    // WebdriverIO provides several hooks you can use to interfere with the test process in order to enhance
+    // WebdriverIO provides several hooks you can use to interfere with the tests process in order to enhance
     // it and to build services around it. You can either apply a single function or an array of
     // methods to it. If one of them returns with a promise, WebdriverIO will wait until that promise got
     // resolved to continue.
@@ -141,7 +151,7 @@ exports.config = {
     // onPrepare: function (config, capabilities) {
     // },
     /**
-     * Gets executed just before initialising the webdriver session and test framework. It allows you
+     * Gets executed just before initialising the webdriver session and tests framework. It allows you
      * to manipulate configurations depending on the capability or spec.
      * @param {Object} config wdio configuration object
      * @param {Array.<Object>} capabilities list of capabilities details
@@ -150,7 +160,7 @@ exports.config = {
     // beforeSession: function (config, capabilities, specs) {
     // },
     /**
-     * Gets executed before test execution begins. At this point you can access to all global
+     * Gets executed before tests execution begins. At this point you can access to all global
      * variables like `browser`. It is the perfect place to define custom commands.
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {Array.<String>} specs List of spec file paths that are to be run
@@ -177,10 +187,10 @@ exports.config = {
     // afterHook: function () {
     // },
     /**
-     * Function to be executed before a test (in Mocha/Jasmine) or a step (in Cucumber) starts.
-     * @param {Object} test test details
+     * Function to be executed before a tests (in Mocha/Jasmine) or a step (in Cucumber) starts.
+     * @param {Object} tests tests details
      */
-    // beforeTest: function (test) {
+    // beforeTest: function (tests) {
     // },
     /**
      * Runs before a WebdriverIO command gets executed.
@@ -199,10 +209,10 @@ exports.config = {
     // afterCommand: function (commandName, args, result, error) {
     // },
     /**
-     * Function to be executed after a test (in Mocha/Jasmine) or a step (in Cucumber) starts.
-     * @param {Object} test test details
+     * Function to be executed after a tests (in Mocha/Jasmine) or a step (in Cucumber) starts.
+     * @param {Object} tests tests details
      */
-    // afterTest: function (test) {
+    // afterTest: function (tests) {
     // },
     /**
      * Hook that gets executed after the suite has ended
@@ -212,8 +222,8 @@ exports.config = {
     // },
     /**
      * Gets executed after all tests are done. You still have access to all global variables from
-     * the test.
-     * @param {Number} result 0 - test pass, 1 - test fail
+     * the tests.
+     * @param {Number} result 0 - tests pass, 1 - tests fail
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {Array.<String>} specs List of spec file paths that ran
      */
