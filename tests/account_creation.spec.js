@@ -3,7 +3,7 @@
  */
 
 var MainPage = require('../pages/main.page');
-var ConfirmationPage = require('../pages/conformation.page')
+var ConfirmationPage = require('../pages/confirmation.page')
 var fs = require('fs');
 var {generateEmail, getInbox, getEmailHash, sleep} = require('../helpers/index_temp_mail');
 
@@ -46,11 +46,11 @@ describe('New account creation ', function () {
     });
 
     it('Confirmation email is came', async function () {
-        for(let i = 0; i <= 60; i+=10) {
+        for (let i = 0; i <= 60; i += 10) {
             try {
                 emails = await getInbox(account['email']);
                 console.log(emails[0]["mail_from"]);
-                if(emails)
+                if (emails)
                     break;
             } catch (err) {
                 console.log("Response Rejected - ", err.message);
@@ -63,7 +63,7 @@ describe('New account creation ', function () {
     // TODO In Order to Post Something you need to Provide a Phone Number or Upload Photo to Facebook, which Facebook will check and
     // only after this you can write a post or add background -> It can be automated,
     // but really hard, especially because Facebook have different scenarios -> If you think that it is not enough for this task -> please contact me
-    // and I will try to automate more steps. It was hard to find an email provider which is not blocked by Facebook.
+    // and I will try to automate more steps. P. S. It was hard to find an email provider which is not blocked by Facebook)
 
     it('Confirm Registration and Upload Photo', function () {
         let url = (emails[0]["mail_text"]).split("\n")[2];
@@ -72,14 +72,14 @@ describe('New account creation ', function () {
         confirmationPage.file_input.waitForExist(50000);
         expect(confirmationPage.file_input.isExisting()).to.be.equal(true, "Facebook blocked this account, " +
             "you need to provide mobile phone for verification -> Should create new user");
-        confirmationPage.file_input.setValue(__dirname +"/photo_test.jpg");
+        confirmationPage.file_input.setValue(__dirname + "/photo_test.jpg");
         browser.waitForVisible(".//*[contains(text(), 'photo_test.jpg')]");
         confirmationPage.submit_button.click();
         expect(confirmationPage.ok_button.isExisting()).to.be.equal(true, "Avatar is not uploaded")
     });
 
     after(function () {
-        if(emails) {
+        if (emails) {
             let json = JSON.stringify(account);
             fs.writeFile('./helpers/account_data.json', json, 'utf8', function (err) {
                 if (err)

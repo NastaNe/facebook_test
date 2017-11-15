@@ -1,6 +1,4 @@
-/**
- * Created by nastane on 11/13/17.
- */
+
 const crypto = require('crypto');
 const https = require('https');
 

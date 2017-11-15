@@ -2,10 +2,6 @@
  * Created by nastane on 10/13/17.
  */
 
-/**
- * Created by nastane on 9/16/17.
- */
-
 var Page = require('./page');
 class MainPage extends Page {
     get first_name() {return browser.element("//*[@name='firstname']");}
