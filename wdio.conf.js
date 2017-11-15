@@ -1,3 +1,19 @@
+const VisualRegressionCompare = require('wdio-visual-regression-service/compare');
+const path = require('path');
+
+function getScreenshotName (folder, context) {
+    const type = context.type;
+    const testParent = context.test.parent;
+    const testName = context.test.title;
+    const browserVersion = parseInt(context.browser.version, 10);
+    const browserName = context.browser.name;
+    const browserViewport = context.meta.viewport;
+    const browserWidth = browserViewport.width;
+    const browserHeight = browserViewport.height;
+
+    return path.join(process.cwd(), 'screenshots', folder, `${testParent}_${testName}_${type}_${browserName}_v${browserVersion}_${browserWidth}x${browserHeight}.png`);
+}
+
 exports.config = {
 
     //
@@ -10,7 +26,7 @@ exports.config = {
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
     specs: [
-        './tests/*.js'
+        './tests/**/*.spec.js'
     ],
     // Patterns to exclude.
     exclude: [
@@ -109,11 +125,19 @@ exports.config = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your tests setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the tests process.
-    // services: [],//
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
     // see also: http://webdriver.io/guide/testrunner/frameworks.html
-    //
+    services: ['selenium-standalone', 'visual-regression'],
+
+    visualRegression: {
+        compare: new VisualRegressionCompare.LocalCompare({
+            referenceName: getScreenshotName.bind(null, 'baseline'),
+            screenshotName: getScreenshotName.bind(null, 'latest'),
+            diffName: getScreenshotName.bind(null, 'diff')
+        }),
+        viewports: [{width: 320, height: 500}, {width: 960, height: 700}]
+    },
     // Make sure you have the wdio adapter package for the specific framework installed
     // before running any tests.
     framework: 'mocha',
@@ -125,7 +149,7 @@ exports.config = {
     //
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/
-    reporters: ['dot', 'allure'],
+    reporters: ['spec', 'allure'],
     reporterOptions: {
         allure: {
             outputDir: 'allure-results'
@@ -165,9 +189,13 @@ exports.config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {Array.<String>} specs List of spec file paths that are to be run
      */
-    // before: function (capabilities, specs) {
-    // },
-    //
+    before: function (capabilities, specs) {
+        var chai = require('chai');
+        var chaiWebdriver = require('chai-webdriverio').default;
+        chai.use(chaiWebdriver(browser));
+
+        global.expect = chai.expect;
+    }
     /**
      * Hook that gets executed before the suite starts
      * @param {Object} suite suite details
