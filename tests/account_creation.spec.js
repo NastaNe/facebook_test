@@ -80,8 +80,11 @@ describe('New account creation ', function () {
 
     after(function () {
         if(emails) {
-            var json = JSON.stringify(account);
-            fs.writeFile('./helpers/account_data.json', json, 'utf8');
+            let json = JSON.stringify(account);
+            fs.writeFile('./helpers/account_data.json', json, 'utf8', function (err) {
+                if (err)
+                    console.log("Error writing file" + err)
+            });
         }
     });
 });
