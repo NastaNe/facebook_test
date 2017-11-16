@@ -11,6 +11,7 @@ describe('New account creation ', function () {
     let account;
     let emails;
     let confirmationPage = new ConfirmationPage;
+    let file_path;
 
     before(function () {
         fs.readFile('./helpers/accounts.json', 'utf8', function (err, data) {
@@ -22,6 +23,9 @@ describe('New account creation ', function () {
                 console.log(err)
             }
         });
+        file_path = (__dirname).split("/");
+        file_path.pop();
+        console.log(file_path);
     });
 
     it('Create a new test email', function () {
@@ -72,7 +76,7 @@ describe('New account creation ', function () {
         confirmationPage.file_input.waitForExist(50000);
         expect(confirmationPage.file_input.isExisting()).to.be.equal(true, "Facebook blocked this account, " +
             "you need to provide mobile phone for verification -> Should create new user");
-        confirmationPage.file_input.setValue(__dirname + "/photo_test.jpg");
+        confirmationPage.file_input.setValue(file_path.join("/") + "/helpers/photo_test.jpg");
         browser.waitForVisible(".//*[contains(text(), 'photo_test.jpg')]");
         confirmationPage.submit_button.click();
         expect(confirmationPage.ok_button.isExisting()).to.be.equal(true, "Avatar is not uploaded")
