@@ -25,7 +25,6 @@ describe('New account creation ', function () {
         });
         file_path = (__dirname).split("/");
         file_path.pop();
-        console.log(file_path);
     });
 
     it('Create a new test email', function () {
