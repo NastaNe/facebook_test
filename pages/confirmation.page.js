@@ -4,7 +4,7 @@
 
 
 var Page = require('./page');
-class СonfirmationPage extends Page {
+class ConfirmationPage extends Page {
     get code_conformation(){return browser.element("//*[@name='code']");}
 
     get file_input() {return browser.element(".//input[contains(@type, 'file')]");}
@@ -22,4 +22,4 @@ class СonfirmationPage extends Page {
         super.open('' + "/login");
     }
 }
-module.exports = СonfirmationPage;
+module.exports = ConfirmationPage;

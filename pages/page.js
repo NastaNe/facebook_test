@@ -5,8 +5,11 @@
 "use strict";
 
 class Page {
-    constructor() {
-        this.title = 'My Page';
+    /**
+     * @param title
+     */
+    constructor(title = 'My Page') {
+        this.title = title;
     }
     open(path) {
         browser.url('/' + path);
